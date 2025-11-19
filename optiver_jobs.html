@@ -1,117 +1,240 @@
-from pathlib import Path
-
 html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Optiver Job Applications</title>
+    <title>Optiver 2026 Roles & Programs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body {
+        :root {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color-scheme: light dark;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
             margin: 0;
             padding: 0;
             background: #f5f5f5;
             color: #222;
         }
         .wrapper {
-            max-width: 700px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 24px 16px 40px;
         }
-        h1 {
-            font-size: 1.8rem;
+        header {
             text-align: center;
-            margin-bottom: 8px;
-        }
-        p.subtitle {
-            text-align: center;
-            margin-top: 0;
             margin-bottom: 24px;
-            color: #555;
         }
-        .link-list {
+        header h1 {
+            font-size: 1.9rem;
+            margin: 0 0 6px;
+        }
+        header p {
+            margin: 4px 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        .section {
+            margin-top: 26px;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .section-intro {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 14px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 14px;
+        }
+        @media (min-width: 720px) {
+            .card-grid {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            }
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 14px 16px 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            justify-content: space-between;
+            gap: 8px;
         }
-        a.job-link {
-            display: block;
+        .card h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #444;
+        }
+        .card-actions {
+            margin-top: 8px;
+        }
+        .card a {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 999px;
             text-decoration: none;
-            padding: 14px 16px;
-            border-radius: 10px;
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            font-size: 0.98rem;
-        }
-        a.job-link span.title {
+            font-size: 0.85rem;
             font-weight: 600;
-            display: block;
-            margin-bottom: 4px;
+            border: 1px solid rgba(0,0,0,0.12);
         }
-        a.job-link span.url {
-            font-size: 0.78rem;
-            word-break: break-all;
-            color: #666;
+        .card a span {
+            white-space: nowrap;
         }
-        .footer {
+        .note {
             margin-top: 28px;
             font-size: 0.8rem;
-            text-align: center;
             color: #777;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <h1>Optiver Job Applications</h1>
-    <p class="subtitle">Tap a card below to open the application link.</p>
-    <div class="link-list">
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzNTBhNDgwNmYzNmE0NWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=MWUzYzIyYWEtYTlkMi00NGFkLTg5ZTAtOWYzNTdhMzdmOGU4&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 1</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzY2YwNTU4YTFiNTIwNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=OGZjNGI0MzgtYmIzYS00NzgzLWFlZDItYjBlYmU0ZjgzYmJl&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 2</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzMTIyMTI2YWQ1MDU2NWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=ZDU4NzE5YWUtNGJmMy00NzA4LWI4ODgtZDU4MTIwZmFlNWM2&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 3</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzZTQxYWRmYzRmYjUwNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=ZjAwNTUyOTItMGFjYi00ZTU0LThkZGItNjllNzIyYjllZDYz&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 4</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzZDRjNzBlODZjY2JlNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=MDJkNmE5NTMtOGFhZC00ZmFiLWI5YjgtZDA5Mjk2YWY0NmY5&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 5</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzYWFiODMyNGJhMTM0NWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=Y2ExN2Y1NTktZjhmMi00MTE2LWJmNGItMmRmZmE4NWNhZGI5&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 6</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzMTYzMzFhZWIwODMyNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=NmFmZTk2N2MtZDE1Ny00NjA0LThkY2QtMGQ3YzVhMWFiODBj&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 7</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzMDhhNmVhYWY3MzUyNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=YzJjMjY1ZWMtMTY0OC00ZTA3LTljMmMtZjMzMTYyNDVkZWJi&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 8</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-        <a class="job-link" href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzMGVlNTU0OGUzOWYwNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=M2MzYjk0Y2MtZjc4Mi00MGI0LWFjODEtNGZhY2FiY2M0MWU2&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
-            <span class="title">Optiver Application 9</span>
-            <span class="url">default.optiver.reallinks.app/...NDcxZGMwYzBkOGZj</span>
-        </a>
-    </div>
-    <div class="footer">
-        Generated list of Optiver job application links.
+    <header>
+        <h1>Optiver 2026 Roles & Programs</h1>
+        <p>A curated list of Optiver programs, internships and graduate roles.</p>
+        <p>Scan → tap a role → apply.</p>
+    </header>
+
+    <section class="section" id="programs">
+        <div class="section-title">Programs</div>
+        <p class="section-intro">
+            If you’re wondering how you can apply your STEM skills in trading, Optiver’s programmes are a great place to start.
+            You’ll spend a week tackling real-world problems through fast-paced teamwork and strategy challenges, guided by people who’ve done the job themselves.
+            If there’s a click at the end, you could get an internship or a full-time offer.
+        </p>
+        <div class="card-grid">
+            <article class="card">
+                <h3>Career Kickstarter: Women in Tech 2026</h3>
+                <p>Week-long programme designed for women in STEM who want to explore how their skills translate to trading and technology at Optiver.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzNTBhNDgwNmYzNmE0NWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=MmJkNjUxZjAtNjUwZi00ZWU2LWE5ODctMTIzMjkxZDYwM2Uy&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>FutureFocus: Quants 2026</h3>
+                <p>Explore quantitative trading and research through real-world problems, teamwork and strategy challenges with Optiver quants.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzMTIyMTI2YWQ1MDU2NWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=ZDYzNWE4MjYtNjhlNi00OWQ2LWI4OTMtZjIwODUxNDFiMmEx&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>Career Kickstarter: Trading 2026</h3>
+                <p>One-week trading-focused programme where you’ll solve market-making problems and learn how traders think in fast-moving markets.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzZTQxYWRmYzRmYjUwNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=ODc5ZjMzZWQtYTQ5Yi00YTc1LTk1OTItMzYyY2VhZDAyN2Yx&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="grad-roles">
+        <div class="section-title">Graduate roles</div>
+        <p class="section-intro">
+            If you’re looking for a place that gives you the chance to take on real responsibility early in your career, Optiver is it.
+            The pace, teamwork and support create an environment where you can learn fast and keep improving.
+            It’s a culture that challenges you while giving you everything you need to do your best work.
+        </p>
+        <div class="card-grid">
+            <article class="card">
+                <h3>Graduate Equity Analyst (2026 Start)</h3>
+                <p>Analyse markets, generate trading insights and work closely with traders to help drive Optiver’s strategies.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzY2YwNTU4YTFiNTIwNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=ZDVjNzM2ZTUtOWIwNy00Y2ZkLThiNWUtYWE2NTVlNzM1MGE0&image=NzEwNDM2ZjYtM2FkOS00MDYyLTk4MzYtNjk4NzllOTE1NGM3" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>Graduate Software Engineer</h3>
+                <p>Build and optimise trading systems, tools and infrastructure that support high-performance market making.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzMDhhNmVhYWY3MzUyNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=MWI3YzBmN2ItMmUwYy00NmJkLWE2NmUtNGQzMjRjNjM5YjM0&image=NzEwNDM2ZjYtM2FkOS00MDYyLTk4MzYtNjk4NzllOTE1NGM3" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>Graduate Quantitative Researcher (2026 Start)</h3>
+                <p>Research, model and test trading ideas, using data and statistics to help refine and improve strategies.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzZjVmM2I1ODFkMDFiNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=ZmY4ZTBjMDgtNzMyMy00ZjU2LTgzNTYtOTRjZjMwNjI5Nzcz&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="internships">
+        <div class="section-title">Internships</div>
+        <p class="section-intro">
+            Optiver internships are hands-on from day one. You’ll work on real projects, learn from people who challenge and support you,
+            and see your work implemented at the end. It’s fast-paced, collaborative and a great way to build skills that last well beyond the summer.
+        </p>
+        <div class="card-grid">
+            <article class="card">
+                <h3>Software Engineer Internship (2026 Start)</h3>
+                <p>Work on production-quality systems and tools alongside experienced engineers, with ownership over meaningful projects.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzZDRjNzBlODZjY2JlNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=MGI0MzA2ZGEtZTAwZi00MjA1LThmNDktNjI2YzAyNmFlMjkx&image=MzhkOTE2NzAtMTBlNS00NWU0LTk2MWEtMWZlOGM1NzE4MmU4" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>Quantitative Trading Internship (2026 Start)</h3>
+                <p>Get exposure to trading, pricing and risk by working closely with traders on real market problems.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzYWFiODMyNGJhMTM0NWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=YmZjMjBlYjMtNTAyNS00OGRlLWFlNmMtM2Y4MWYwMTA4NTU1&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>Quantitative Research Internship (2026 Start)</h3>
+                <p>Apply statistics, probability and data analysis to explore and test trading ideas in a research-focused role.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzMTYzMzFhZWIwODMyNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=YjA3ZWE5ZjgtNDcwZi00ZWFmLWE4ZGEtNzQ0YmEzZWMwZjE1&image=ZTM2ZTBkMDctYjY5NC00N2FlLWFiZGYtZDcxZGMwYzBkOGZj" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>FPGA Internship (Summer 2026)</h3>
+                <p>Work on low-latency hardware solutions and FPGA development that supports Optiver’s trading systems.</p>
+                <div class="card-actions">
+                    <a href="https://default.optiver.reallinks.app/public/job/MzgxMjM0MGMxNTIzMGVlNTU0OGUzOWYwNWQwZGQxZDQ1M2FlNjQ5ODBlNDNjNDAw?eventId=ZGU4ZDA3ZWYtNjM5YS00NTRkLWJkOWMtOGRhOWQ4OGZhOWU3&image=MzhkOTE2NzAtMTBlNS00NWU0LTk2MWEtMWZlOGM1NzE4MmU4" target="_blank" rel="noopener noreferrer">
+                        <span>Open application</span>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <div class="note">
+        Generated summary of Optiver 2026 programs, internships and graduate roles. Please check each posting for the latest details and deadlines.
     </div>
 </div>
 </body>
 </html>
 """
-
-path = Path("/mnt/data/optiver_jobs.html")
-path.write_text(html, encoding="utf-8")
-str(path)
