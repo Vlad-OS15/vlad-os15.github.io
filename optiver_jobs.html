@@ -99,6 +99,29 @@
             color: #777;
             text-align: center;
         }
+
+        /* 🌙 Dark mode overrides */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #050509;
+                color: #e5e5e5;
+            }
+            header p,
+            .section-intro,
+            .note {
+                color: #a0a0a0;
+            }
+            .card {
+                background: #111118;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+            }
+            .card p {
+                color: #d0d0d0;
+            }
+            .card a {
+                border-color: rgba(255,255,255,0.18);
+            }
+        }
     </style>
 </head>
 <body>
